@@ -17,8 +17,6 @@ public class ApplicationContext : DbContext, IApplicationContext
         Database.EnsureCreated();
     }
 
-    /// <summary>
-    /// Tasks.
-    /// </summary>
+    /// <inheritdoc />
     public DbSet<Issue> Issues { get; protected set; }
 }
