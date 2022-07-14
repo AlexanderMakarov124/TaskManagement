@@ -1,0 +1,12 @@
+﻿@model TaskManagement.Web.ViewModels.IssueViewModel
+
+@{
+    ViewData["Title"] = "Issues";
+}
+
+@{
+    foreach (var issue in Model.Issues)
+    {
+        <p>Name: @issue.Name</p>
+    }
+}
