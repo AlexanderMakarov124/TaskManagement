@@ -1,9 +1,11 @@
-﻿namespace TaskManagement.Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TaskManagement.Domain.Models;
 
 /// <summary>
-/// Task.
+/// Issue.
 /// </summary>
-public class Task
+public class Issue
 {
     /// <summary>
     /// Identifier.
@@ -13,40 +15,46 @@ public class Task
     /// <summary>
     /// Name.
     /// </summary>
+    [Required]
+    [StringLength(100)]
     public string Name { get; init; }
 
     /// <summary>
     /// Description.
     /// </summary>
-    public string Description { get; init; }
+    public string? Description { get; init; }
 
     /// <summary>
-    /// The people who responsible for the task.
+    /// The people who responsible for the issue.
     /// </summary>
+    [Required]
     public string Executors { get; init; }
 
     /// <summary>
     /// Status.
     /// </summary>
+    [Required]
     public string Status { get; init; }
 
     /// <summary>
-    /// Estimated time to complete the task.
+    /// Estimated time to complete the issue.
     /// </summary>
+    [Required]
     public int EstimatedHours { get; init; }
 
     /// <summary>
-    /// The date when the task was created.
+    /// The date when the issue was created.
     /// </summary>
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
     /// <summary>
-    /// The time when the task was completed.
+    /// The time when the issue was completed.
     /// </summary>
-    public DateTime CompletedAt { get; init; }
+    public DateTime? CompletedAt { get; init; }
 
     /// <summary>
-    /// The date when the task should have already been completed.
+    /// The date when the issue should have already been completed.
     /// </summary>
+    [Required]
     public DateTime Deadline { get; init; }
 }

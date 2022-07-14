@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManagement.Abstractions.DataAccess;
+using TaskManagement.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+builder.Services.AddTransient<IApplicationContext, ApplicationContext>();
 
 var app = builder.Build();
 
