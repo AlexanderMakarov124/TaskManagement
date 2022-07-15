@@ -12,4 +12,9 @@ public interface IApplicationContext
     /// Issues.
     /// </summary>
     DbSet<Issue> Issues { get; }
+
+    /// <summary>
+    /// Saves pending changes.
+    /// </summary>
+    Task SaveChangesAsync();
 }

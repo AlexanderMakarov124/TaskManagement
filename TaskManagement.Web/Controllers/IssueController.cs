@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagement.UseCases.Issues.CreateIssue;
 using TaskManagement.UseCases.Issues.GetIssues;
 using TaskManagement.Web.ViewModels;
 
@@ -26,11 +27,25 @@ public class IssueController : Controller
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>View.</returns>
+    [HttpGet]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
         var issues = await mediator.Send(new GetIssuesQuery(), cancellationToken);
 
-        var viewModel = new IssueViewModel { Issues = issues };
+        var viewModel = new IssuesListViewModel { Issues = issues };
         return View(viewModel);
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromForm] CreateIssueCommand command, CancellationToken cancellationToken)
+    {
+        await mediator.Send(command, cancellationToken);
+        return RedirectToAction(nameof(Index));
     }
 }

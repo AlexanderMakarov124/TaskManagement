@@ -19,4 +19,10 @@ public class ApplicationContext : DbContext, IApplicationContext
 
     /// <inheritdoc />
     public DbSet<Issue> Issues { get; protected set; }
+
+    /// <inheritdoc />
+    public async Task SaveChangesAsync()
+    {
+        await base.SaveChangesAsync();
+    }
 }

@@ -5,7 +5,7 @@ namespace TaskManagement.Web.ViewModels;
 /// <summary>
 /// Issue view model.
 /// </summary>
-public class IssueViewModel
+public class IssuesListViewModel
 {
     /// <summary>
     /// Issues.
