@@ -3,6 +3,9 @@
 namespace TaskManagement.Domain.Dtos;
 public class IssueDto
 {
+    /// <inheritdoc cref="Issue.Id"/>
+    public int Id { get; init; }
+
     /// <inheritdoc cref="Issue.Name"/>
     public string? Name { get; init; }
 

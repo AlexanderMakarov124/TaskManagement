@@ -28,6 +28,6 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
         var issue = mapper.Map<Issue>(request.IssueDto);
 
         db.Issues.Add(issue);
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(cancellationToken);
     }
 }

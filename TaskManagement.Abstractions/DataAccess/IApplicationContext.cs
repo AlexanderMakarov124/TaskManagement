@@ -16,5 +16,6 @@ public interface IApplicationContext
     /// <summary>
     /// Saves pending changes.
     /// </summary>
-    Task SaveChangesAsync();
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

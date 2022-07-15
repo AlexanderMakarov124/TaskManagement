@@ -26,7 +26,7 @@ internal class DeleteIssueCommandHandler : AsyncRequestHandler<DeleteIssueComman
         if (issue != null)
         {
             db.Issues.Remove(issue);
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync(cancellationToken);
         }
     }
 }

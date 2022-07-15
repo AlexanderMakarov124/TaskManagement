@@ -1,8 +1,11 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Domain.Dtos;
 using TaskManagement.UseCases.Issues.CreateIssue;
 using TaskManagement.UseCases.Issues.DeleteIssue;
+using TaskManagement.UseCases.Issues.EditIssue;
+using TaskManagement.UseCases.Issues.FindIssueById;
 using TaskManagement.UseCases.Issues.GetIssues;
 using TaskManagement.Web.ViewModels;
 
@@ -14,13 +17,15 @@ namespace TaskManagement.Web.Controllers;
 public class IssueController : Controller
 {
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public IssueController(IMediator mediator)
+    public IssueController(IMediator mediator, IMapper mapper)
     {
         this.mediator = mediator;
+        this.mapper = mapper;
     }
 
 
@@ -72,6 +77,34 @@ public class IssueController : Controller
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
     {
         await mediator.Send(new DeleteIssueCommand(id), cancellationToken);
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    /// <summary>
+    /// GET: Edit view.
+    /// </summary>
+    /// <returns>View.</returns>
+    [HttpGet]
+    public async Task<IActionResult> Edit([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
+
+        var issueDto = mapper.Map<IssueDto>(issue);
+
+        return View(issueDto);
+    }
+
+    /// <summary>
+    /// POST: Edits issue.
+    /// </summary>
+    /// <param name="issueDto">Issue DTO.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>Redirect to index page.</returns>
+    [HttpPost]
+    public async Task<IActionResult> Edit([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
+    {
+        await mediator.Send(new EditIssueCommand(issueDto), cancellationToken);
 
         return RedirectToAction(nameof(Index));
     }

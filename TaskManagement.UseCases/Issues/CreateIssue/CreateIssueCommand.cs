@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using TaskManagement.Domain.Dtos;
-using TaskManagement.Domain.Models;
 
 namespace TaskManagement.UseCases.Issues.CreateIssue;
 
