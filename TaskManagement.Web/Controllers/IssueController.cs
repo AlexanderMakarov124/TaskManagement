@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TaskManagement.Domain.Models;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using TaskManagement.UseCases.Issues.GetIssues;
 using TaskManagement.Web.ViewModels;
 
 namespace TaskManagement.Web.Controllers;
@@ -9,24 +10,27 @@ namespace TaskManagement.Web.Controllers;
 /// </summary>
 public class IssueController : Controller
 {
+    private readonly IMediator mediator;
+
     /// <summary>
-    /// Index view.
+    /// Constructor.
     /// </summary>
-    /// <returns>View.</returns>
-    public IActionResult Index()
+    public IssueController(IMediator mediator)
     {
-        var testData = new List<Issue>
-        {
-            new Issue
-            {
-                Name = "test1"
-            },
-            new Issue
-            {
-                Name = "test2"
-            }
-        };
-        var viewModel = new IssueViewModel { Issues = testData };
+        this.mediator = mediator;
+    }
+
+
+    /// <summary>
+    /// Index view. Contains issues.
+    /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>View.</returns>
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+    {
+        var issues = await mediator.Send(new GetIssuesQuery(), cancellationToken);
+
+        var viewModel = new IssueViewModel { Issues = issues };
         return View(viewModel);
     }
 }

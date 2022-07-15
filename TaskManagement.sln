@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Web", "TaskManagement.Web\TaskManagement.Web.csproj", "{C042D8C3-162A-4D45-BF4A-BEC35A69E92C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagement.Web", "TaskManagement.Web\TaskManagement.Web.csproj", "{C042D8C3-162A-4D45-BF4A-BEC35A69E92C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.DataAccess", "TaskManagement.DataAccess\TaskManagement.DataAccess.csproj", "{49045E7B-A245-4328-97A3-923213A2B34C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagement.DataAccess", "TaskManagement.DataAccess\TaskManagement.DataAccess.csproj", "{49045E7B-A245-4328-97A3-923213A2B34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Abstractions", "TaskManagement.Abstractions\TaskManagement.Abstractions.csproj", "{CA29ED64-9E05-41FA-AFD5-27E55D8014C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagement.Abstractions", "TaskManagement.Abstractions\TaskManagement.Abstractions.csproj", "{CA29ED64-9E05-41FA-AFD5-27E55D8014C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Domain", "TaskManagement.Domain\TaskManagement.Domain.csproj", "{CC970049-E570-4E48-8427-CECB2718A6B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagement.Domain", "TaskManagement.Domain\TaskManagement.Domain.csproj", "{CC970049-E570-4E48-8427-CECB2718A6B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.UseCases", "TaskManagement.UseCases\TaskManagement.UseCases.csproj", "{645F0ED3-795A-4719-A3D2-C37BED92336D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CC970049-E570-4E48-8427-CECB2718A6B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC970049-E570-4E48-8427-CECB2718A6B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC970049-E570-4E48-8427-CECB2718A6B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645F0ED3-795A-4719-A3D2-C37BED92336D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645F0ED3-795A-4719-A3D2-C37BED92336D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645F0ED3-795A-4719-A3D2-C37BED92336D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645F0ED3-795A-4719-A3D2-C37BED92336D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

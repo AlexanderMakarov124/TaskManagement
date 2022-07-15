@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.DataAccess;
+using TaskManagement.UseCases.Issues.GetIssues;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 builder.Services.AddTransient<IApplicationContext, ApplicationContext>();
+
+builder.Services.AddMediatR(typeof(GetIssuesQuery).Assembly);
 
 var app = builder.Build();
 
