@@ -8,5 +8,10 @@
     foreach (var issue in Model.Issues)
     {
         <p>Name: @issue.Name</p>
+        <p>
+            <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
+                <button type="submit">Delete</button>
+            </form>
+        </p>
     }
 }
