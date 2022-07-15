@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagement.Domain.Dtos;
 using TaskManagement.UseCases.Issues.CreateIssue;
 using TaskManagement.UseCases.Issues.GetIssues;
 using TaskManagement.Web.ViewModels;
@@ -43,9 +44,10 @@ public class IssueController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm] CreateIssueCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
     {
-        await mediator.Send(command, cancellationToken);
+        await mediator.Send(new CreateIssueCommand(issueDto), cancellationToken);
+
         return RedirectToAction(nameof(Index));
     }
 }

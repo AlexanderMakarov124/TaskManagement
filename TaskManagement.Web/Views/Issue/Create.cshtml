@@ -1,4 +1,4 @@
-﻿@model TaskManagement.UseCases.Issues.CreateIssue.CreateIssueCommand
+﻿@model TaskManagement.Domain.Dtos.IssueDto
 
 @{
     ViewData["Title"] = "Create issue";
@@ -35,8 +35,7 @@
         <label asp-for="Deadline"></label>
         <input type="date" asp-for="Deadline"/>
     </p>
-    
-
 
     <button type="submit">Create</button>
+
 </form>

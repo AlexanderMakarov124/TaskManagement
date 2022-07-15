@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.DataAccess;
 using TaskManagement.UseCases.Issues.GetIssues;
+using TaskManagement.Web.Mapping_profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 builder.Services.AddTransient<IApplicationContext, ApplicationContext>();
 
 builder.Services.AddMediatR(typeof(GetIssuesQuery).Assembly);
+
+builder.Services.AddAutoMapper(typeof(IssueMappingProfile).Assembly);
 
 var app = builder.Build();
 
