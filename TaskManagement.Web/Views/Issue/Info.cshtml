@@ -13,6 +13,9 @@
 <p>Completed: @Model.CompletedAt</p>
 <p>Deadline: @Model.Deadline</p>
 
-<p>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-</p>
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+
+@if (Model.IssueId == null)
+{
+    <a asp-action="Create" asp-route-id="@Model.Id">Create sub issue</a>
+}

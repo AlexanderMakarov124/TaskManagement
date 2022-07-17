@@ -49,7 +49,7 @@ public class IssueController : Controller
     /// <param name="id">Issue id.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>View.</returns>
-    [HttpGet]
+    [HttpGet("Issues/{id:int}")]
     public async Task<IActionResult> Info([FromRoute] int id, CancellationToken cancellationToken)
     {
         var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
@@ -61,7 +61,7 @@ public class IssueController : Controller
     /// GET: Create view.
     /// </summary>
     /// <returns>View.</returns>
-    [HttpGet]
+    [HttpGet("Create/{id:int?}")]
     public IActionResult Create()
     {
         return View();
@@ -72,11 +72,12 @@ public class IssueController : Controller
     /// </summary>
     /// <param name="issueDto">Issue DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <param name="id">Optional parameter. When you put it, you will create sub issue.</param>
     /// <returns>Redirect to index page.</returns>
-    [HttpPost]
-    public async Task<IActionResult> Create([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
+    [HttpPost("Create/{id:int?}")]
+    public async Task<IActionResult> Create([FromForm] IssueDto issueDto, CancellationToken cancellationToken, [FromRoute] int? id = null)
     {
-        await mediator.Send(new CreateIssueCommand(issueDto), cancellationToken);
+        await mediator.Send(new CreateIssueCommand(issueDto, id), cancellationToken);
 
         return RedirectToAction(nameof(Index));
     }
@@ -99,7 +100,7 @@ public class IssueController : Controller
     /// GET: Edit view.
     /// </summary>
     /// <returns>View.</returns>
-    [HttpGet]
+    [HttpGet("Edit/{id:int}")]
     public async Task<IActionResult> Edit([FromRoute] int id, CancellationToken cancellationToken)
     {
         var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);

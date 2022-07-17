@@ -57,4 +57,14 @@ public class Issue
     /// </summary>
     [Required]
     public DateTime Deadline { get; init; }
+
+    /// <summary>
+    /// Sub issues.
+    /// </summary>
+    public ICollection<Issue> SubIssues { get; init; }
+
+    /// <summary>
+    /// Parent issue id. If no parent, it is null.
+    /// </summary>
+    public int? IssueId { get; init; }
 }

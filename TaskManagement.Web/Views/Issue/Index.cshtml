@@ -5,11 +5,33 @@
 }
 <h3>Issues</h3>
 @{
-    foreach (var issue in Model.Issues)
-    {
-        <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
-            <a asp-action="Info" asp-route-id="@issue.Id">@issue.Name</a>
-            <button type="submit">Delete</button>
-        </form>
-    }
+    var parentsIssues = Model.Issues.Where(issue => issue.IssueId == null);
+
+    <ul>
+        @foreach (var issue in parentsIssues)
+        {
+            <li>
+                <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
+                    <a asp-action="Info" asp-route-id="@issue.Id">@issue.Name</a>
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            if (issue.SubIssues != null)
+            {
+                <li>
+                    <ul>
+                        @foreach (var subIssue in issue.SubIssues)
+                        {
+                            <li>
+                                <form method="post" asp-action="Delete" asp-route-id="@subIssue.Id">
+                                    <a asp-action="Info" asp-route-id="@subIssue.Id">@subIssue.Name</a>
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
 }

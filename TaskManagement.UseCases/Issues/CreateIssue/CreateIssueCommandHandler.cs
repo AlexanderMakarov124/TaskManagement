@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.Domain.Models;
 
@@ -26,6 +27,15 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
     protected override async Task Handle(CreateIssueCommand request, CancellationToken cancellationToken)
     {
         var issue = mapper.Map<Issue>(request.IssueDto);
+
+        if (request.Id != null)
+        {
+            var parentIssue = db.Issues
+                .Where(i => i.Id == request.Id)
+                .Include(i => i.SubIssues)
+                .FirstOrDefault();
+            parentIssue!.SubIssues.Add(issue);
+        }
 
         db.Issues.Add(issue);
         await db.SaveChangesAsync(cancellationToken);
