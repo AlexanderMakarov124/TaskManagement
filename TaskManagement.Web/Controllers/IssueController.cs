@@ -44,6 +44,20 @@ public class IssueController : Controller
     }
 
     /// <summary>
+    /// GET: Information view about the issue.
+    /// </summary>
+    /// <param name="id">Issue id.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>View.</returns>
+    [HttpGet]
+    public async Task<IActionResult> Info([FromRoute] int id, CancellationToken cancellationToken)
+    {
+        var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
+
+        return View(issue);
+    }
+
+    /// <summary>
     /// GET: Create view.
     /// </summary>
     /// <returns>View.</returns>

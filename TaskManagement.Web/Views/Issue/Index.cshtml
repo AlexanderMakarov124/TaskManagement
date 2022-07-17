@@ -3,18 +3,13 @@
 @{
     ViewData["Title"] = "Issues";
 }
-
+<h3>Issues</h3>
 @{
     foreach (var issue in Model.Issues)
     {
-        <p>Name: @issue.Name</p>
-        <p>
-            <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
-                <button type="submit">Delete</button>
-            </form>
-        </p>
-        <p>
-            <a asp-action="Edit" asp-route-id="@issue.Id">Edit</a>
-        </p>
+        <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
+            <a asp-action="Info" asp-route-id="@issue.Id">@issue.Name</a>
+            <button type="submit">Delete</button>
+        </form>
     }
 }

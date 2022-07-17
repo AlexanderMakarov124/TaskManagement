@@ -1,0 +1,18 @@
+﻿@model TaskManagement.Domain.Models.Issue
+@{
+    ViewData["Title"] = "Create issue";
+}
+
+<p>Id: @Model.Id</p>
+<p>Name: @Model.Name</p>
+<p>Description: @Model.Description</p>
+<p>Executors: @Model.Executors</p>
+<p>Status: @Model.Status</p>
+<p>Estimated: hours @Model.EstimatedHours</p>
+<p>Created: @Model.CreatedAt</p>
+<p>Completed: @Model.CompletedAt</p>
+<p>Deadline: @Model.Deadline</p>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</p>
