@@ -30,10 +30,7 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
 
         if (request.Id != null)
         {
-            var parentIssue = db.Issues
-                .Where(i => i.Id == request.Id)
-                .Include(i => i.SubIssues)
-                .FirstOrDefault();
+            var parentIssue = await db.Issues.FindAsync(request.Id);
             parentIssue!.SubIssues.Add(issue);
         }
 
