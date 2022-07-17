@@ -1,4 +1,5 @@
-﻿@model TaskManagement.Domain.Dtos.IssueDto
+﻿@using TaskManagement.Domain.Models
+@model TaskManagement.Domain.Dtos.IssueDto
 
 @{
     ViewData["Title"] = "Create issue";
@@ -23,7 +24,14 @@
     
     <p>
         <label asp-for="Status"></label>
-        <input type="text" asp-for="Status"/>
+        <select asp-for="Status">
+            @{
+                foreach (var value in Enum.GetValues(typeof(Status)))
+                {
+                    <option>@value</option>
+                }
+            }
+        </select>
     </p>
     
     <p>

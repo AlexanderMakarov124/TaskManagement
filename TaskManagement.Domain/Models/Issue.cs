@@ -34,7 +34,7 @@ public class Issue
     /// Status.
     /// </summary>
     [Required]
-    public string Status { get; init; }
+    public Status Status { get; init; }
 
     /// <summary>
     /// Estimated time to complete the issue.

@@ -5,32 +5,36 @@
 }
 
 <form method="post" asp-action="Edit">
-    
+    <p>
+        <label asp-for="Id"></label>
+        <input type="number" asp-for="Id" readonly/>
+    </p>
+
     <p>
         <label asp-for="Name"></label>
         <input type="text" asp-for="Name"/>
     </p>
-    
+
     <p>
         <label asp-for="Description"></label>
         <textarea asp-for="Description" ></textarea>
     </p>
-    
+
     <p>
         <label asp-for="Executors"></label>
         <input type="text" asp-for="Executors"/>
     </p>
-    
+
     <p>
         <label asp-for="Status"></label>
         <input type="text" asp-for="Status"/>
     </p>
-    
+
     <p>
         <label asp-for="EstimatedHours"></label>
         <input type="number" asp-for="EstimatedHours"/>
     </p>
-    
+
     <p>
         <label asp-for="Deadline"></label>
         <input type="date" asp-for="Deadline"/>

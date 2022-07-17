@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TaskManagement.Domain.Models;
 
 namespace TaskManagement.Abstractions.DataAccess;
@@ -18,4 +19,6 @@ public interface IApplicationContext
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     Task SaveChangesAsync(CancellationToken cancellationToken);
+
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 }

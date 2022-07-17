@@ -100,7 +100,7 @@ public class IssueController : Controller
     /// GET: Edit view.
     /// </summary>
     /// <returns>View.</returns>
-    [HttpGet("Edit/{id:int}")]
+    [HttpGet]
     public async Task<IActionResult> Edit([FromRoute] int id, CancellationToken cancellationToken)
     {
         var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);

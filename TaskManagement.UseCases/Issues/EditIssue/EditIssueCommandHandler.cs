@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.Domain.Models;
 
@@ -17,11 +18,10 @@ internal class EditIssueCommandHandler : AsyncRequestHandler<EditIssueCommand>
 
     protected override async Task Handle(EditIssueCommand request, CancellationToken cancellationToken)
     {
-        var issue = await db.Issues.FindAsync(request.IssueDto.Id);
+        var issue = mapper.Map<Issue>(request.IssueDto);
 
-        issue = mapper.Map<Issue>(request.IssueDto);
-
-        db.Issues.Update(issue);
+        db.Issues.Add(issue);
+        db.Entry(issue).State = EntityState.Modified;
         await db.SaveChangesAsync(cancellationToken);
     }
 }
