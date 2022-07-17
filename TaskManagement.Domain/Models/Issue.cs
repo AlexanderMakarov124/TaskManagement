@@ -7,6 +7,8 @@ namespace TaskManagement.Domain.Models;
 /// </summary>
 public class Issue
 {
+    private readonly int _estimatedHours;
+
     /// <summary>
     /// Identifier.
     /// </summary>
@@ -40,7 +42,24 @@ public class Issue
     /// Estimated time to complete the issue.
     /// </summary>
     [Required]
-    public int EstimatedHours { get; init; }
+    public int EstimatedHours
+    {
+        get
+        {
+            if (IssueId == null && SubIssues != null)
+            {
+                var sumHours = _estimatedHours;
+                foreach (var subIssue in SubIssues)
+                {
+                    sumHours += subIssue.EstimatedHours;
+                }
+                return sumHours;
+            }
+
+            return _estimatedHours;
+        }
+        init => _estimatedHours = value;
+    }
 
     /// <summary>
     /// The date when the issue was created.
@@ -61,10 +80,10 @@ public class Issue
     /// <summary>
     /// Sub issues.
     /// </summary>
-    public ICollection<Issue> SubIssues { get; init; }
+    public virtual ICollection<Issue> SubIssues { get; init; }
 
     /// <summary>
     /// Parent issue id. If no parent, it is null.
     /// </summary>
-    public int? IssueId { get; init; }
+    public virtual int? IssueId { get; init; }
 }

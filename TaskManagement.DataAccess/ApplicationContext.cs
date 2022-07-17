@@ -22,7 +22,7 @@ public class ApplicationContext : DbContext, IApplicationContext
     public DbSet<Issue> Issues { get; protected set; }
 
     /// <inheritdoc />
-    public async Task SaveChangesAsync(CancellationToken cancellationToken)
+    public new async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await base.SaveChangesAsync(cancellationToken);
     }
