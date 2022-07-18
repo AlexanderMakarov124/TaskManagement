@@ -1,7 +1,9 @@
 ﻿@model TaskManagement.Domain.Models.Issue
 @{
+    Layout = null;
     ViewData["Title"] = "Create issue";
 }
+<h2>@ViewData["Title"]</h2>
 
 <p>Id: @Model.Id</p>
 <p>Name: @Model.Name</p>
@@ -10,10 +12,22 @@
 <p>Status: @Model.Status</p>
 <p>Estimated hours: @Model.EstimatedHours</p>
 <p>Created: @Model.CreatedAt</p>
-<p>Completed: @Model.CompletedAt</p>
+@if (@Model.CompletedAt == null)
+{
+    <p>Completed: None</p>
+}
+else
+{
+    <p>Completed: @Model.CompletedAt</p>
+}
 <p>Deadline: @Model.Deadline</p>
 
-<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<p>
+    <label for="checkboxComplete">Mark as complete:</label>
+    <input id="checkboxComplete" type="checkbox" onchange=""/>
+</p>
+
+<button type="button" onclick="loadIssueEdit(@Model.Id)">Edit</button>
 
 @if (Model.IssueId == null)
 {

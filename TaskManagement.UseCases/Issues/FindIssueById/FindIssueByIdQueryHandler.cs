@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.Domain.Models;
 

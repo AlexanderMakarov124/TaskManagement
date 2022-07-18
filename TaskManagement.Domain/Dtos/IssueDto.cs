@@ -1,7 +1,7 @@
 ﻿using TaskManagement.Domain.Models;
 
 namespace TaskManagement.Domain.Dtos;
-public class IssueDto
+public record IssueDto
 {
     /// <inheritdoc cref="Issue.Id"/>
     public int Id { get; init; }
@@ -23,4 +23,7 @@ public class IssueDto
 
     /// <inheritdoc cref="Issue.Deadline"/>
     public DateTime Deadline { get; init; }
+
+    /// <inheritdoc cref="Issue.IssueId"/>
+    public int? IssueId { get; init; }
 }

@@ -1,10 +1,14 @@
 ﻿@model TaskManagement.Domain.Dtos.IssueDto
 
 @{
+    Layout = null;
     ViewData["Title"] = "Edit issue";
 }
 
-<form method="post" asp-action="Edit">
+<h2>@ViewData["Title"]</h2>
+
+<form id="editForm">
+
     <p>
         <label asp-for="Id"></label>
         <input type="number" asp-for="Id" readonly/>
@@ -12,7 +16,7 @@
 
     <p>
         <label asp-for="Name"></label>
-        <input type="text" asp-for="Name"/>
+        <input id="issueName" type="text" asp-for="Name"/>
     </p>
 
     <p>
@@ -22,7 +26,7 @@
 
     <p>
         <label asp-for="Executors"></label>
-        <input type="text" asp-for="Executors"/>
+        <input id="issueExecutors" type="text" asp-for="Executors"/>
     </p>
 
     <p>
@@ -40,6 +44,6 @@
         <input type="date" asp-for="Deadline"/>
     </p>
 
-    <button type="submit">Edit</button>
+    <button type="button" onclick="updateIssue(@Model.Id)">Edit</button>
 
 </form>

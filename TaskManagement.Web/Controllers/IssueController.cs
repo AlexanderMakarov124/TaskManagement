@@ -43,6 +43,17 @@ public class IssueController : Controller
         return View(viewModel);
     }
 
+    [HttpGet("List")]
+    public async Task<IActionResult> List(CancellationToken cancellationToken)
+    {
+        var issues = await mediator.Send(new GetIssuesQuery(), cancellationToken);
+
+        var viewModel = new IssuesListViewModel { Issues = issues };
+        return View(viewModel);
+    }
+
+
+
     /// <summary>
     /// GET: Information view about the issue.
     /// </summary>
@@ -111,16 +122,16 @@ public class IssueController : Controller
     }
 
     /// <summary>
-    /// POST: Edits issue.
+    /// PUT: Edits issue.
     /// </summary>
     /// <param name="issueDto">Issue DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Redirect to index page.</returns>
-    [HttpPost]
+    [HttpPut("Edit")]
     public async Task<IActionResult> Edit([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
     {
         await mediator.Send(new EditIssueCommand(issueDto), cancellationToken);
 
-        return RedirectToAction(nameof(Index));
+        return NoContent();
     }
 }

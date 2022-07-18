@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using TaskManagement.Domain.Models
+@model IssuesListViewModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Edit issue";
+}
+
+<h3>Issues</h3>
+@{
+    var parentsIssues = Model.Issues.Where(issue => issue.IssueId == null);
+
+    async Task GenerateIssue(Issue issue)
+    {
+        <li>
+            <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
+                <a class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</a>
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    }
+
+    <ul>
+        @foreach (var issue in parentsIssues)
+        {
+            await GenerateIssue(issue);
+            if (issue.SubIssues != null)
+            {
+                <li>
+                    <ul>
+                        @foreach (var subIssue in issue.SubIssues)
+                        {
+                            await GenerateIssue(subIssue);
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+}

@@ -18,10 +18,15 @@ internal class EditIssueCommandHandler : AsyncRequestHandler<EditIssueCommand>
 
     protected override async Task Handle(EditIssueCommand request, CancellationToken cancellationToken)
     {
-        var issue = mapper.Map<Issue>(request.IssueDto);
+        var issue = await db.Issues.FindAsync(request.IssueDto.Id);
 
-        db.Issues.Add(issue);
-        db.Entry(issue).State = EntityState.Modified;
+        var issueDto = request.IssueDto with
+        {
+            IssueId = issue.IssueId
+        };
+        var editedIssue = mapper.Map<Issue>(issueDto);
+
+        db.Entry(issue).CurrentValues.SetValues(editedIssue);
         await db.SaveChangesAsync(cancellationToken);
     }
 }

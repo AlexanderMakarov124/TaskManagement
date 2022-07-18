@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.Domain.Models;
 
