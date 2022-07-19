@@ -1,12 +1,14 @@
 ﻿@using TaskManagement.Domain.Models
+@using Microsoft.AspNetCore.Mvc.Localization
 @model IssuesListViewModel
+@inject IViewLocalizer Localizer
 
 @{
     Layout = null;
-    ViewData["Title"] = "Issues list";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h3>Issues</h3>
+<h3>@ViewData["Title"]</h3>
 @{
     var parentsIssues = Model.Issues.Where(issue => issue.IssueId == null).ToList();
 

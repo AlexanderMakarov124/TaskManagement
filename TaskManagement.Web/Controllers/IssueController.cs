@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using TaskManagement.Domain.Dtos;
 using TaskManagement.Domain.Exceptions;
 using TaskManagement.Domain.Models;
@@ -178,5 +180,17 @@ public class IssueController : Controller
         await mediator.Send(new UpdateIssueCommand(issueDto), cancellationToken);
 
         return NoContent();
+    }
+
+    [HttpPost]
+    public IActionResult SetLanguage(string culture, string returnUrl)
+    {
+        Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+        );
+
+        return LocalRedirect(returnUrl);
     }
 }

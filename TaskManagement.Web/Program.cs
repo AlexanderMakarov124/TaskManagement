@@ -1,4 +1,6 @@
+using System.Globalization;
 using MediatR;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.DataAccess;
@@ -8,7 +10,8 @@ using TaskManagement.Web.Mapping_profiles;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -21,6 +24,20 @@ builder.Services.AddMediatR(typeof(GetIssuesQuery).Assembly);
 
 builder.Services.AddAutoMapper(typeof(IssueMappingProfile).Assembly);
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en"),
+        new CultureInfo("ru")
+    };
+    options.DefaultRequestCulture = new RequestCulture("en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +47,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseRequestLocalization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
