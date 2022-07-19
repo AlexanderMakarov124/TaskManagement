@@ -14,6 +14,8 @@ public class IssueMappingProfile : Profile
     /// </summary>
     public IssueMappingProfile()
     {
-        CreateMap<IssueDto, Issue>().ReverseMap();
+        CreateMap<IssueDto, Issue>()
+            .ReverseMap()
+            .ForMember(dest => dest.HasSubIssues, opt => opt.MapFrom(issue => issue.SubIssues.Any()));
     }
 }

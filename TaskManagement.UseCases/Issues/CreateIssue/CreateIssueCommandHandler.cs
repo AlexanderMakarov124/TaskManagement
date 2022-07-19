@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using TaskManagement.Abstractions.DataAccess;
+using TaskManagement.Domain.Exceptions;
 using TaskManagement.Domain.Models;
 
 namespace TaskManagement.UseCases.Issues.CreateIssue;
@@ -34,7 +35,15 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
         if (request.Id != null)
         {
             var parentIssue = await db.Issues.FindAsync(request.Id);
-            parentIssue!.SubIssues.Add(issue);
+
+            if (parentIssue != null)
+            {
+                parentIssue!.SubIssues.Add(issue);
+            }
+            else
+            {
+                throw new IssueNotFoundException($"Issue with id {request.Id} was not found.");
+            }
         }
 
         db.Issues.Add(issue);

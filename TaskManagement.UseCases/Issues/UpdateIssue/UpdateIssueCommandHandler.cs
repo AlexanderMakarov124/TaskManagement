@@ -29,11 +29,11 @@ internal class UpdateIssueCommandHandler : AsyncRequestHandler<UpdateIssueComman
 
         var issueDto = request.IssueDto with
         {
-            IssueId = issue.IssueId,
+            IssueId = issue!.IssueId,
             CreatedAt = issue.CreatedAt,
             CompletedAt = issue.CompletedAt
         };
-        if (issue.Status.ToString() != issueDto.Status && issueDto.Status == Status.Completed.ToString())
+        if (issue.Status == Status.InProgress && issueDto.Status == Status.Completed.ToString())
         {
             if (SubIssuesAbleToComplete(issue))
             {
@@ -51,7 +51,7 @@ internal class UpdateIssueCommandHandler : AsyncRequestHandler<UpdateIssueComman
                 };
             }
         }
-        else if (issue.Status.ToString() != issueDto.Status && issue.Status == Status.Completed)
+        else if (issue.Status == Status.Completed && issue.Status.ToString() != issueDto.Status)
         {
             issueDto = issueDto with
             {

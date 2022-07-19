@@ -32,4 +32,9 @@ public record IssueDto
 
     /// <inheritdoc cref="Issue.CompletedAt"/>
     public DateTime? CompletedAt { get; init; }
+
+    /// <summary>
+    /// Describes sub issues existence.
+    /// </summary>
+    public bool HasSubIssues { get; init; }
 }

@@ -1,5 +1,5 @@
 ﻿/**
- * Function to load issues list.
+ * This function called when document is ready.
  */
 $(function () {
     loadAllIssues();
@@ -75,6 +75,10 @@ function updateIssue(id) {
     });
 }
 
+/**
+ * Deletes issue.
+ * @param {number} id Issue id.
+ */
 function deleteIssue(id) {
     $.ajax({
         url: `/Issue/Delete/${id}`,

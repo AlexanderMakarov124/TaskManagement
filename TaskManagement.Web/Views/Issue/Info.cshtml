@@ -8,7 +8,7 @@
 
 <p id="issueId" data-issue-id="@Model.Id">Id: @Model.Id</p>
 <p>Name: @Model.Name</p>
-<p>Description: @Model.Description</p>
+<p class="issueDescription"> Description: @Model.Description</p>
 <p>Executors: @Model.Executors</p>
 <p>Status: @Model.Status</p>
 <p>Estimated hours: @Model.EstimatedHours</p>
@@ -17,8 +17,12 @@
 {
     <p>Completed: @Model.CompletedAt</p>
 }
-<p>Deadline: @Model.Deadline</p>
+<p>Deadline: @Model.Deadline.ToShortDateString()</p>
 
-<button type="button" onclick="loadIssueEdit(@Model.Id)">Edit</button>
+<p>
+    <button type="button" onclick="loadIssueEdit(@Model.Id)">Edit</button>
+</p>
 
-<a asp-action="Create" asp-route-id="@Model.Id">Create sub issue</a>
+<form method="get" asp-action="Create" asp-route-id="@Model.Id">
+    <button type="submit">Create sub issue</button>
+</form>

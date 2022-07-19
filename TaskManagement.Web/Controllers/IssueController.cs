@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Domain.Dtos;
+using TaskManagement.Domain.Exceptions;
 using TaskManagement.Domain.Models;
 using TaskManagement.UseCases.Issues.CreateIssue;
 using TaskManagement.UseCases.Issues.DeleteIssue;
@@ -43,6 +44,12 @@ public class IssueController : Controller
         var viewModel = new IssuesListViewModel { Issues = issues };
         return View(viewModel);
     }
+
+    /// <summary>
+    /// GET: Issues list view.
+    /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>View.</returns>
 
     [HttpGet("List")]
     public async Task<IActionResult> List(CancellationToken cancellationToken)
@@ -110,17 +117,25 @@ public class IssueController : Controller
     [HttpPost("Create/{id:int?}")]
     public async Task<IActionResult> Create([FromForm] IssueDto issueDto, CancellationToken cancellationToken, [FromRoute] int? id = null)
     {
-        await mediator.Send(new CreateIssueCommand(issueDto, id), cancellationToken);
+        try
+        {
+            await mediator.Send(new CreateIssueCommand(issueDto, id), cancellationToken);
+        }
+        catch (IssueNotFoundException ex)
+        {
+            ViewData["Exception"] = ex.Message;
+            return View(issueDto);
+        }
 
         return RedirectToAction(nameof(Index));
     }
 
     /// <summary>
-    /// POST: Deletes issue.
+    /// DELETE: Deletes issue.
     /// </summary>
     /// <param name="id">Issue id.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>Redirect to index page.</returns>
+    /// <returns>No content status code.</returns>
     [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
     {
@@ -136,7 +151,15 @@ public class IssueController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit([FromRoute] int id, CancellationToken cancellationToken)
     {
-        var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
+        Issue issue;
+        try
+        {
+            issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
+        }
+        catch (IssueNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
 
         var issueDto = mapper.Map<IssueDto>(issue);
 
@@ -148,7 +171,7 @@ public class IssueController : Controller
     /// </summary>
     /// <param name="issueDto">Issue DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>Redirect to index page.</returns>
+    /// <returns>No content status code.</returns>
     [HttpPut("Edit")]
     public async Task<IActionResult> Edit([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
     {

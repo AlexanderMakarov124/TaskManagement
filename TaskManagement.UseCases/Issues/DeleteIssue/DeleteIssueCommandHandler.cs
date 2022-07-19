@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TaskManagement.Abstractions.DataAccess;
+using TaskManagement.Domain.Exceptions;
 
 namespace TaskManagement.UseCases.Issues.DeleteIssue;
 
@@ -34,6 +35,10 @@ internal class DeleteIssueCommandHandler : AsyncRequestHandler<DeleteIssueComman
             }
             db.Issues.Remove(issue);
             await db.SaveChangesAsync(cancellationToken);
+        }
+        else
+        {
+            throw new IssueNotFoundException($"Issue with id {request.Id} was not found.");
         }
     }
 }

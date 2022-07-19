@@ -8,13 +8,13 @@
 
 <h3>Issues</h3>
 @{
-    var parentsIssues = Model.Issues.Where(issue => issue.IssueId == null);
+    var parentsIssues = Model.Issues.Where(issue => issue.IssueId == null).ToList();
 
     async Task GenerateIssue(Issue issue)
     {
         <li>
             <a class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</a>
-            <button type="button" onclick="deleteIssue(@issue.Id)">Delete</button>
+            <img class="redCross" src="img/red-cross.png" onclick="deleteIssue(@issue.Id)" alt="Delete issue"/>
         </li>
         
         if (issue.SubIssues != null)
@@ -26,7 +26,7 @@
 
     async Task RecursiveGenerateIssue(Issue issue)
     {
-        <li>
+        <li class="subList">
             <ul>
                 @foreach (var subIssue in issue.SubIssues)
                 {
@@ -36,10 +36,17 @@
         </li>
     }
 
-    <ul>
-        @foreach (var issue in parentsIssues)
-        {
-            await GenerateIssue(issue);
-        }
-    </ul>
+    if (parentsIssues.Any())
+    {
+        <ul>
+            @foreach (var issue in parentsIssues)
+            {
+                await GenerateIssue(issue);
+            }
+        </ul>
+    }
+    else
+    {
+        <h4>Issues is empty.</h4>
+    }
 }

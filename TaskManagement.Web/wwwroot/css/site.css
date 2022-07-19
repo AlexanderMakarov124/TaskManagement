@@ -22,3 +22,17 @@ body {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.subList {
+    list-style-type: none
+}
+
+.redCross {
+    height: 10%;
+    width: 10%;
+    cursor: pointer;
+}
+
+.issueDescription {
+    word-wrap: break-word;
+}
