@@ -35,10 +35,21 @@ internal class UpdateIssueCommandHandler : AsyncRequestHandler<UpdateIssueComman
         };
         if (issue.Status.ToString() != issueDto.Status && issueDto.Status == Status.Completed.ToString())
         {
-            issueDto = issueDto with
+            if (SubIssuesAbleToComplete(issue))
             {
-                CompletedAt = DateTime.UtcNow
-            };
+                issueDto = issueDto with
+                {
+                    CompletedAt = DateTime.UtcNow
+                };
+                CompleteSubIssues(issue);
+            }
+            else
+            {
+                issueDto = issueDto with
+                {
+                    Status = issue.Status.ToString()
+                };
+            }
         }
         else if (issue.Status.ToString() != issueDto.Status && issue.Status == Status.Completed)
         {
@@ -51,5 +62,28 @@ internal class UpdateIssueCommandHandler : AsyncRequestHandler<UpdateIssueComman
 
         db.Entry(issue).CurrentValues.SetValues(editedIssue);
         await db.SaveChangesAsync(cancellationToken);
+    }
+
+    private void CompleteSubIssues(Issue issue)
+    {
+        foreach (var subIssue in issue.SubIssues)
+        {
+            subIssue.Status = Status.Completed;
+            subIssue.CompletedAt = DateTime.UtcNow;
+            CompleteSubIssues(subIssue);
+        }
+    }
+
+    private bool SubIssuesAbleToComplete(Issue issue)
+    {
+        foreach (var subIssue in issue.SubIssues)
+        {
+            if (subIssue.Status != Status.InProgress || !SubIssuesAbleToComplete(subIssue))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

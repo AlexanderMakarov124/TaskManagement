@@ -121,12 +121,12 @@ public class IssueController : Controller
     /// <param name="id">Issue id.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Redirect to index page.</returns>
-    [HttpPost]
+    [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)
     {
         await mediator.Send(new DeleteIssueCommand(id), cancellationToken);
 
-        return RedirectToAction(nameof(Index));
+        return NoContent();
     }
 
     /// <summary>

@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using TaskManagement.Domain.Models
+﻿@using TaskManagement.Domain.Models
 @model IssuesListViewModel
 
 @{
@@ -14,10 +13,8 @@
     async Task GenerateIssue(Issue issue)
     {
         <li>
-            <form method="post" asp-action="Delete" asp-route-id="@issue.Id">
-                <a class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</a>
-                <button type="submit">Delete</button>
-            </form>
+            <a class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</a>
+            <button type="button" onclick="deleteIssue(@issue.Id)">Delete</button>
         </li>
         
         if (issue.SubIssues != null)

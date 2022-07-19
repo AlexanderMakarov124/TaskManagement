@@ -30,6 +30,7 @@ function loadIssueInfo(id) {
             $('#issue').load(this.url);
         },
         error: function () {
+            $('#issue').load();
             alert('Error while loading data');
         }
     });
@@ -66,6 +67,24 @@ function updateIssue(id) {
         success: function () {
             loadAllIssues();
             loadIssueInfo(id);
+            console.log('Success request');
+        },
+        error: function () {
+            alert('Error while loading data');
+        }
+    });
+}
+
+function deleteIssue(id) {
+    $.ajax({
+        url: `/Issue/Delete/${id}`,
+        type: 'DELETE',
+        success: function () {
+            loadAllIssues();
+            const issueId = $('#issueId').attr('data-issue-id').valueOf();
+            if (issueId == id) {
+                $('#issue').empty();
+            }
             console.log('Success request');
         },
         error: function () {
