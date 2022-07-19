@@ -1,4 +1,6 @@
-﻿@model TaskManagement.Domain.Dtos.IssueDto
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using TaskManagement.Domain.Models
+@model TaskManagement.Domain.Dtos.IssueDto
 
 @{
     Layout = null;
@@ -31,7 +33,36 @@
 
     <p>
         <label asp-for="Status"></label>
-        <input type="text" asp-for="Status"/>
+        <select asp-for="Status">
+            @switch (Enum.Parse<Status>(Model.Status))
+            {
+                case Status.Assigned:
+                    {
+                        <option>@Model.Status</option>
+                        <option>@Status.InProgress</option>
+                        break;
+                    }
+                case Status.Stopped:
+                {
+                    foreach (var value in Enum.GetValues(typeof(Status)))
+                    {
+                        if (value.ToString() != Status.Completed.ToString())
+                        {
+                            <option>@value</option>
+                        }
+                    }
+                    break;
+                }
+                default:
+                {
+                    foreach (var value in Enum.GetValues(typeof(Status)))
+                    {
+                        <option>@value</option>
+                    }
+                    break;
+                }
+            }
+        </select>
     </p>
 
     <p>

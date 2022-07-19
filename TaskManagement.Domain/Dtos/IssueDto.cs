@@ -26,4 +26,10 @@ public record IssueDto
 
     /// <inheritdoc cref="Issue.IssueId"/>
     public int? IssueId { get; init; }
+
+    /// <inheritdoc cref="Issue.CreatedAt"/>
+    public DateTime CreatedAt { get; init; }
+
+    /// <inheritdoc cref="Issue.CompletedAt"/>
+    public DateTime? CompletedAt { get; init; }
 }

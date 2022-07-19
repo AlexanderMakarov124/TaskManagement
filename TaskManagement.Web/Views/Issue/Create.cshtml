@@ -27,12 +27,8 @@
     <p>
         <label asp-for="Status"></label>
         <select asp-for="Status">
-            @{
-                foreach (var value in Enum.GetValues(typeof(Status)))
-                {
-                    <option>@value</option>
-                }
-            }
+            <option>Assigned</option>
+            <option>InProgress</option>
         </select>
     </p>
     

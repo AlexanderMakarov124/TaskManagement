@@ -7,8 +7,6 @@ namespace TaskManagement.Domain.Models;
 /// </summary>
 public class Issue
 {
-    private readonly int _estimatedHours;
-
     /// <summary>
     /// Identifier.
     /// </summary>
@@ -42,34 +40,17 @@ public class Issue
     /// Estimated time to complete the issue.
     /// </summary>
     [Required]
-    public int EstimatedHours
-    {
-        get
-        {
-            if (IssueId == null && SubIssues != null)
-            {
-                var sumHours = _estimatedHours;
-                foreach (var subIssue in SubIssues)
-                {
-                    sumHours += subIssue.EstimatedHours;
-                }
-                return sumHours;
-            }
-
-            return _estimatedHours;
-        }
-        init => _estimatedHours = value;
-    }
+    public int EstimatedHours { get; set; }
 
     /// <summary>
     /// The date when the issue was created.
     /// </summary>
-    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; init; }
 
     /// <summary>
     /// The time when the issue was completed.
     /// </summary>
-    public DateTime? CompletedAt { get; init; }
+    public DateTime? CompletedAt { get; set; }
 
     /// <summary>
     /// The date when the issue should have already been completed.

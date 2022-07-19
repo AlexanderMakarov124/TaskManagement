@@ -25,7 +25,11 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
     /// <inheritdoc />
     protected override async Task Handle(CreateIssueCommand request, CancellationToken cancellationToken)
     {
-        var issue = mapper.Map<Issue>(request.IssueDto);
+        var issueDto = request.IssueDto with
+        {
+            CreatedAt = DateTime.UtcNow
+        };
+        var issue = mapper.Map<Issue>(issueDto);
 
         if (request.Id != null)
         {

@@ -3,6 +3,7 @@
     Layout = null;
     ViewData["Title"] = "Issue info";
 }
+
 <h2>@ViewData["Title"]</h2>
 
 <p>Id: @Model.Id</p>
@@ -12,11 +13,7 @@
 <p>Status: @Model.Status</p>
 <p>Estimated hours: @Model.EstimatedHours</p>
 <p>Created: @Model.CreatedAt</p>
-@if (@Model.CompletedAt == null)
-{
-    <p>Completed: None</p>
-}
-else
+@if (@Model.CompletedAt != null)
 {
     <p>Completed: @Model.CompletedAt</p>
 }

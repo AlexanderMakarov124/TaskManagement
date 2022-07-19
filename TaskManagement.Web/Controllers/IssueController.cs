@@ -2,11 +2,12 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.Domain.Dtos;
+using TaskManagement.Domain.Models;
 using TaskManagement.UseCases.Issues.CreateIssue;
 using TaskManagement.UseCases.Issues.DeleteIssue;
-using TaskManagement.UseCases.Issues.EditIssue;
 using TaskManagement.UseCases.Issues.FindIssueById;
 using TaskManagement.UseCases.Issues.GetIssues;
+using TaskManagement.UseCases.Issues.UpdateIssue;
 using TaskManagement.Web.ViewModels;
 
 namespace TaskManagement.Web.Controllers;
@@ -65,7 +66,28 @@ public class IssueController : Controller
     {
         var issue = await mediator.Send(new FindIssueByIdQuery(id), cancellationToken);
 
+        await GetSumHoursAsync(issue, cancellationToken);
+
         return View(issue);
+    }
+
+    private async Task GetSumHoursAsync(Issue issue, CancellationToken cancellationToken)
+    {
+        var sumHours = 0;
+        if (issue.SubIssues.Any())
+        {
+            foreach (var subIssue in issue.SubIssues)
+            {
+                await GetSumHoursAsync(subIssue, cancellationToken);
+                sumHours += subIssue.EstimatedHours;
+            }
+        }
+        else
+        {
+            sumHours = issue.EstimatedHours;
+        }
+        issue.EstimatedHours = sumHours;
+        await mediator.Send(new UpdateIssueCommand(mapper.Map<IssueDto>(issue)), cancellationToken);
     }
 
     /// <summary>
@@ -130,7 +152,7 @@ public class IssueController : Controller
     [HttpPut("Edit")]
     public async Task<IActionResult> Edit([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
     {
-        await mediator.Send(new EditIssueCommand(issueDto), cancellationToken);
+        await mediator.Send(new UpdateIssueCommand(issueDto), cancellationToken);
 
         return NoContent();
     }
