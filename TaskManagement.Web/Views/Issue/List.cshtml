@@ -4,7 +4,7 @@
 
 @{
     Layout = null;
-    ViewData["Title"] = "Edit issue";
+    ViewData["Title"] = "Issues list";
 }
 
 <h3>Issues</h3>
@@ -19,23 +19,30 @@
                 <button type="submit">Delete</button>
             </form>
         </li>
+        
+        if (issue.SubIssues != null)
+        {
+            await RecursiveGenerateIssue(issue);
+        }
+
+    }
+
+    async Task RecursiveGenerateIssue(Issue issue)
+    {
+        <li>
+            <ul>
+                @foreach (var subIssue in issue.SubIssues)
+                {
+                    await GenerateIssue(subIssue);
+                }
+            </ul>
+        </li>
     }
 
     <ul>
         @foreach (var issue in parentsIssues)
         {
             await GenerateIssue(issue);
-            if (issue.SubIssues != null)
-            {
-                <li>
-                    <ul>
-                        @foreach (var subIssue in issue.SubIssues)
-                        {
-                            await GenerateIssue(subIssue);
-                        }
-                    </ul>
-                </li>
-            }
         }
     </ul>
 }

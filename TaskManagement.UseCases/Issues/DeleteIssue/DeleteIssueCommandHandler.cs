@@ -25,6 +25,13 @@ internal class DeleteIssueCommandHandler : AsyncRequestHandler<DeleteIssueComman
 
         if (issue != null)
         {
+            if (issue.SubIssues.Any())
+            {
+                foreach (var subIssue in issue.SubIssues)
+                {
+                    subIssue.IssueId = null;
+                }
+            }
             db.Issues.Remove(issue);
             await db.SaveChangesAsync(cancellationToken);
         }

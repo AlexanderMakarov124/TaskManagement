@@ -85,5 +85,5 @@ public class Issue
     /// <summary>
     /// Parent issue id. If no parent, it is null.
     /// </summary>
-    public virtual int? IssueId { get; init; }
+    public virtual int? IssueId { get; set; }
 }
