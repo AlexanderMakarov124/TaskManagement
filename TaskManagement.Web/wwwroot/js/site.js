@@ -58,21 +58,26 @@ function loadIssueEdit(id) {
  * @param {number} id Issue id.
  */
 function updateIssue(id) {
-    const formData = $('#editForm').serialize();
+    var form = $("#editForm");
+    form.validate();
 
-    $.ajax({
-        url: '/Edit',
-        data: formData,
-        type: 'PUT',
-        success: function () {
-            loadAllIssues();
-            loadIssueInfo(id);
-            console.log('Success request');
-        },
-        error: function () {
-            alert('Error while loading data');
-        }
-    });
+    if (form.valid()) {
+        const formData = $('#editForm').serialize();
+
+        $.ajax({
+            url: '/Edit',
+            data: formData,
+            type: 'PUT',
+            success: function () {
+                loadAllIssues();
+                loadIssueInfo(id);
+                console.log('Success request');
+            },
+            error: function () {
+                alert('Error while loading data');
+            }
+        });
+    }
 }
 
 /**

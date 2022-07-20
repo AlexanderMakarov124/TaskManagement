@@ -23,9 +23,9 @@
 <p>@SharedLocalizer["Deadline"]: @Model.Deadline.ToShortDateString()</p>
 
 <p>
-    <button type="button" onclick="loadIssueEdit(@Model.Id)">@SharedLocalizer["EditButton"]</button>
+    <button class="btn btn-success" type="button" onclick="loadIssueEdit(@Model.Id)">@SharedLocalizer["EditButton"]</button>
 </p>
 
 <form method="get" asp-action="Create" asp-route-id="@Model.Id">
-    <button type="submit">@Localizer["CreateSubIssue"]</button>
+    <button class="btn btn-secondary" type="submit">@Localizer["CreateSubIssue"]</button>
 </form>

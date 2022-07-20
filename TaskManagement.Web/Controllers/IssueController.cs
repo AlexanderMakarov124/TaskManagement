@@ -184,7 +184,14 @@ public class IssueController : Controller
     [HttpPut("Edit")]
     public async Task<IActionResult> Edit([FromForm] IssueDto issueDto, CancellationToken cancellationToken)
     {
-        await mediator.Send(new UpdateIssueCommand(issueDto), cancellationToken);
+        if (ModelState.IsValid)
+        {
+            await mediator.Send(new UpdateIssueCommand(issueDto), cancellationToken);
+        }
+        else
+        {
+            return View(issueDto);
+        }
 
         return NoContent();
     }

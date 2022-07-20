@@ -16,35 +16,35 @@
 
     <p>
         <label asp-for="Id"></label>
-        <input type="number" asp-for="Id" readonly/>
+        <input class="form-control" type="number" asp-for="Id" readonly/>
     </p>
 
     <p>
         <label asp-for="Name">@SharedLocalizer["Name"]</label>
-        <input id="issueName" type="text" asp-for="Name" required/>
+        <input class="form-control" id="issueName" type="text" asp-for="Name" required/>
     </p>
 
     <p>
         <label asp-for="Description">@SharedLocalizer["Description"]</label>
-        <textarea asp-for="Description" ></textarea>
+        <textarea class="form-control" asp-for="Description" name="description" ></textarea>
     </p>
 
     <p>
         <label asp-for="Executors">@SharedLocalizer["Executors"]</label>
-        <input id="issueExecutors" type="text" asp-for="Executors" required/>
+        <input class="form-control" id="issueExecutors" type="text" asp-for="Executors" required/>
     </p>
 
     <p>
         <label asp-for="Status">@SharedLocalizer["Status"]</label>
-        <select asp-for="Status">
+        <select class="form-control" asp-for="Status">
             @switch (Enum.Parse<Status>(Model.Status))
             {
                 case Status.Assigned:
-                    {
-                        <option value="@Model.Status">@SharedLocalizer[Model.Status]</option>
-                        <option value="@Status.InProgress" >@SharedLocalizer[Status.InProgress.ToString()]</option>
-                        break;
-                    }
+                {
+                    <option value="@Model.Status">@SharedLocalizer[Model.Status]</option>
+                    <option value="@Status.InProgress" >@SharedLocalizer[Status.InProgress.ToString()]</option>
+                    break;
+                }
                 case Status.Stopped:
                 {
                     foreach (var value in Enum.GetValues(typeof(Status)))
@@ -70,14 +70,16 @@
 
     <p>
         <label asp-for="EstimatedHours">@SharedLocalizer["EstimatedHours"]</label>
-        <input type="number" asp-for="EstimatedHours" readonly="@Model.HasSubIssues"/>
+        <input class="form-control" type="number" asp-for="EstimatedHours" readonly="@Model.HasSubIssues"/>
     </p>
 
     <p>
         <label asp-for="Deadline">@SharedLocalizer["Deadline"]</label>
-        <input type="date" asp-for="Deadline" required/>
+        <input class="form-control" type="date" asp-for="Deadline"/>
     </p>
 
-    <button type="button" onclick="updateIssue(@Model.Id)">@SharedLocalizer["EditButton"]</button>
+    <button class="btn btn-success" type="button" onclick="updateIssue(@Model.Id)">@SharedLocalizer["EditButton"]</button>
 
 </form>
+
+<div id="summary"></div>
