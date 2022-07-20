@@ -1,4 +1,5 @@
-﻿using TaskManagement.Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using TaskManagement.Domain.Models;
 
 namespace TaskManagement.Domain.Dtos;
 public record IssueDto
@@ -11,7 +12,7 @@ public record IssueDto
 
     /// <inheritdoc cref="Issue.Description"/>
     public string? Description { get; init; }
-    
+
     /// <inheritdoc cref="Issue.Executors"/>
     public string Executors { get; init; }
 

@@ -36,3 +36,28 @@ body {
 .issueDescription {
     word-wrap: break-word;
 }
+
+textarea[name="Description"] {
+    width: 70%;
+    height: 150px;
+}
+
+input[name="Executors"] {
+    width: 70%;
+}
+
+.form-control {
+    width: auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

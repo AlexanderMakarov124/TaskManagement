@@ -117,7 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>Главная</value>
+  <data name="Assigned" xml:space="preserve">
+    <value>Назначена</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Завершена</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Создана</value>
+  </data>
+  <data name="CreateNav" xml:space="preserve">
+    <value>Создать задачу</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Дата завершения</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="EstimatedHours" xml:space="preserve">
+    <value>Плановая трудоёмкость задачи (в часах)</value>
+  </data>
+  <data name="Executors" xml:space="preserve">
+    <value>Исполнители</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>Выполняется</value>
+  </data>
+  <data name="IssuesNav" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Остановлена</value>
   </data>
 </root>

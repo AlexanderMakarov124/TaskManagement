@@ -121,7 +121,14 @@ public class IssueController : Controller
     {
         try
         {
-            await mediator.Send(new CreateIssueCommand(issueDto, id), cancellationToken);
+            if (ModelState.IsValid)
+            {
+                await mediator.Send(new CreateIssueCommand(issueDto, id), cancellationToken);
+            }
+            else
+            {
+                return View(issueDto);
+            }
         }
         catch (IssueNotFoundException ex)
         {

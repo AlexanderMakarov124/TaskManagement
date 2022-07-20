@@ -1,28 +1,31 @@
-﻿@model TaskManagement.Domain.Models.Issue
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model TaskManagement.Domain.Models.Issue
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
     Layout = null;
-    ViewData["Title"] = "Issue info";
+    ViewData["Title"] = Localizer["Title"];
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <p id="issueId" data-issue-id="@Model.Id">Id: @Model.Id</p>
-<p>Name: @Model.Name</p>
-<p class="issueDescription"> Description: @Model.Description</p>
-<p>Executors: @Model.Executors</p>
-<p>Status: @Model.Status</p>
-<p>Estimated hours: @Model.EstimatedHours</p>
-<p>Created: @Model.CreatedAt</p>
+<p>@SharedLocalizer["Name"]: @Model.Name</p>
+<p class="issueDescription"> @SharedLocalizer["Description"]: @Model.Description</p>
+<p>@SharedLocalizer["Executors"]: @Model.Executors</p>
+<p>@SharedLocalizer["Status"]: @SharedLocalizer[Model.Status.ToString()]</p>
+<p>@SharedLocalizer["EstimatedHours"]: @Model.EstimatedHours</p>
+<p>@SharedLocalizer["Created"]: @Model.CreatedAt</p>
 @if (@Model.CompletedAt != null)
 {
-    <p>Completed: @Model.CompletedAt</p>
+    <p>@SharedLocalizer["Completed"]: @Model.CompletedAt</p>
 }
-<p>Deadline: @Model.Deadline.ToShortDateString()</p>
+<p>@SharedLocalizer["Deadline"]: @Model.Deadline.ToShortDateString()</p>
 
 <p>
-    <button type="button" onclick="loadIssueEdit(@Model.Id)">Edit</button>
+    <button type="button" onclick="loadIssueEdit(@Model.Id)">@SharedLocalizer["EditButton"]</button>
 </p>
 
 <form method="get" asp-action="Create" asp-route-id="@Model.Id">
-    <button type="submit">Create sub issue</button>
+    <button type="submit">@Localizer["CreateSubIssue"]</button>
 </form>

@@ -26,9 +26,4 @@ public class ApplicationContext : DbContext, IApplicationContext
     {
         await base.SaveChangesAsync(cancellationToken);
     }
-
-    public override EntityEntry<TEntity> Entry<TEntity>(TEntity entity)
-    {
-        return base.Entry(entity);
-    }
 }

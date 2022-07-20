@@ -5,12 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.DataAccess;
 using TaskManagement.UseCases.Issues.GetIssues;
+using TaskManagement.Web;
 using TaskManagement.Web.Mapping_profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews()
+    .AddDataAnnotationsLocalization(options => {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(SharedResource));
+    })
     .AddViewLocalization();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");

@@ -1,10 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using TaskManagement.Domain.Models
+@using Microsoft.AspNetCore.Mvc.Localization
 @model TaskManagement.Domain.Dtos.IssueDto
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{
     Layout = null;
-    ViewData["Title"] = "Edit issue";
+    ViewData["Title"] = Localizer["Title"];
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -17,29 +20,29 @@
     </p>
 
     <p>
-        <label asp-for="Name"></label>
-        <input id="issueName" type="text" asp-for="Name"/>
+        <label asp-for="Name">@SharedLocalizer["Name"]</label>
+        <input id="issueName" type="text" asp-for="Name" required/>
     </p>
 
     <p>
-        <label asp-for="Description"></label>
+        <label asp-for="Description">@SharedLocalizer["Description"]</label>
         <textarea asp-for="Description" ></textarea>
     </p>
 
     <p>
-        <label asp-for="Executors"></label>
-        <input id="issueExecutors" type="text" asp-for="Executors"/>
+        <label asp-for="Executors">@SharedLocalizer["Executors"]</label>
+        <input id="issueExecutors" type="text" asp-for="Executors" required/>
     </p>
 
     <p>
-        <label asp-for="Status"></label>
+        <label asp-for="Status">@SharedLocalizer["Status"]</label>
         <select asp-for="Status">
             @switch (Enum.Parse<Status>(Model.Status))
             {
                 case Status.Assigned:
                     {
-                        <option>@Model.Status</option>
-                        <option>@Status.InProgress</option>
+                        <option value="@Model.Status">@SharedLocalizer[Model.Status]</option>
+                        <option value="@Status.InProgress" >@SharedLocalizer[Status.InProgress.ToString()]</option>
                         break;
                     }
                 case Status.Stopped:
@@ -48,7 +51,7 @@
                     {
                         if (value.ToString() != Status.Completed.ToString())
                         {
-                            <option>@value</option>
+                            <option value="@value">@SharedLocalizer[value.ToString()]</option>
                         }
                     }
                     break;
@@ -57,7 +60,7 @@
                 {
                     foreach (var value in Enum.GetValues(typeof(Status)))
                     {
-                        <option>@value</option>
+                        <option value="@value">@SharedLocalizer[value.ToString()]</option>
                     }
                     break;
                 }
@@ -66,15 +69,15 @@
     </p>
 
     <p>
-        <label asp-for="EstimatedHours"></label>
-        <input type="number" asp-for="EstimatedHours"/>
+        <label asp-for="EstimatedHours">@SharedLocalizer["EstimatedHours"]</label>
+        <input type="number" asp-for="EstimatedHours" readonly="@Model.HasSubIssues"/>
     </p>
 
     <p>
-        <label asp-for="Deadline"></label>
-        <input type="date" asp-for="Deadline"/>
+        <label asp-for="Deadline">@SharedLocalizer["Deadline"]</label>
+        <input type="date" asp-for="Deadline" required/>
     </p>
 
-    <button type="button" onclick="updateIssue(@Model.Id)">Edit</button>
+    <button type="button" onclick="updateIssue(@Model.Id)">@SharedLocalizer["EditButton"]</button>
 
 </form>

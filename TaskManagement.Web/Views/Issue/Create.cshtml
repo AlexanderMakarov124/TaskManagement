@@ -1,47 +1,42 @@
-﻿@model TaskManagement.Domain.Dtos.IssueDto
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model TaskManagement.Domain.Dtos.IssueDto
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{
-    ViewData["Title"] = "Create issue";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="col-md-6 mx-auto">
 
-<form method="post" asp-action="Create">
-    
-    <p>
-        <label asp-for="Name"></label>
-        <input type="text" asp-for="Name"/>
-    </p>
-    
-    <p>
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" ></textarea>
-    </p>
-    
-    <p>
-        <label asp-for="Executors"></label>
-        <input type="text" asp-for="Executors"/>
-    </p>
-    
-    <p>
-        <label asp-for="Status"></label>
-        <select asp-for="Status">
-            <option>Assigned</option>
-            <option>InProgress</option>
+    <h2>@ViewData["Title"]</h2>
+
+    <form method="post" asp-action="Create">
+
+        <label asp-for="Name">@SharedLocalizer["Name"]</label>
+        <input class="form-control" type="text" asp-for="Name" required />
+
+        <label asp-for="Description">@SharedLocalizer["Description"]</label>
+        <textarea class="issueDescription form-control " asp-for="Description"></textarea>
+
+        <label asp-for="Executors">@SharedLocalizer["Executors"]</label>
+        <input class="form-control" type="text" asp-for="Executors" required />
+
+        <label asp-for="Status">@SharedLocalizer["Status"]</label>
+        <select class="form-control" asp-for="Status">
+            <option value="Assigned">@SharedLocalizer["Assigned"]</option>
+            <option value="InProgress">@SharedLocalizer["InProgress"]</option>
         </select>
-    </p>
-    
-    <p>
-        <label asp-for="EstimatedHours"></label>
-        <input type="number" asp-for="EstimatedHours"/>
-    </p>
-    
-    <p>
-        <label asp-for="Deadline"></label>
-        <input type="date" asp-for="Deadline"/>
-    </p>
 
-    <button type="submit">Create</button>
+        <label asp-for="EstimatedHours">@SharedLocalizer["EstimatedHours"]</label>
+        <input class="form-control" type="number" asp-for="EstimatedHours" />
 
-</form>
-<p>@ViewData["Exception"]</p>
+        <label asp-for="Deadline">@SharedLocalizer["Deadline"]</label>
+        <input class="form-control" type="date" asp-for="Deadline" />
+
+        <button class="btn btn-success" type="submit">@Localizer["CreateButton"]</button>
+
+    </form>
+    @ViewData["Exception"]
+
+</div>

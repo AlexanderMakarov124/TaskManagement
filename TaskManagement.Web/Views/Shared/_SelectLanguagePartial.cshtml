@@ -13,7 +13,7 @@
         .ToList();
 }
  
-<form asp-controller="Issue" asp-action="SetLanguage" style="margin-top:20px;"
+<form class="form-check-inline" asp-controller="Issue" asp-action="SetLanguage"
       asp-route-returnUrl="@Context.Request.Path"
       method="post" class="form-horizontal">
     Language: <select name="culture" onchange="this.form.submit();"
