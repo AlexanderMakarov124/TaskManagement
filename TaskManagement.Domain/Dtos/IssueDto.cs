@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TaskManagement.Domain.Models;
+﻿using TaskManagement.Domain.Models;
 
 namespace TaskManagement.Domain.Dtos;
 public record IssueDto

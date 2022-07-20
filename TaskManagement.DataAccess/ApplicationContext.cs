@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TaskManagement.Abstractions.DataAccess;
 using TaskManagement.Domain.Models;
 
@@ -15,7 +14,7 @@ public class ApplicationContext : DbContext, IApplicationContext
     /// </summary>
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
-        Database.EnsureCreated();
+
     }
 
     /// <inheritdoc />

@@ -32,9 +32,9 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
         };
         var issue = mapper.Map<Issue>(issueDto);
 
-        if (request.Id != null)
+        if (request.ParentId != null)
         {
-            var parentIssue = await db.Issues.FindAsync(request.Id);
+            var parentIssue = await db.Issues.FindAsync(request.ParentId);
 
             if (parentIssue != null)
             {
@@ -42,7 +42,7 @@ internal class CreateIssueCommandHandler : AsyncRequestHandler<CreateIssueComman
             }
             else
             {
-                throw new IssueNotFoundException($"Issue with id {request.Id} was not found.");
+                throw new IssueNotFoundException($"Issue with id {request.ParentId} was not found.");
             }
         }
 

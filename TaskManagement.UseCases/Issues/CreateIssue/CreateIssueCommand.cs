@@ -7,5 +7,5 @@ namespace TaskManagement.UseCases.Issues.CreateIssue;
 /// Create issue command.
 /// </summary>
 /// <param name="IssueDto">Issue DTO.</param>
-/// <param name="Id">Parent issue id.</param>
-public record CreateIssueCommand(IssueDto IssueDto, int? Id) : IRequest;
+/// <param name="ParentId">Parent issue id.</param>
+public record CreateIssueCommand(IssueDto IssueDto, int? ParentId) : IRequest;

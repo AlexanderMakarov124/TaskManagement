@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using TaskManagement.Domain.Dtos;
 using TaskManagement.Domain.Exceptions;
 using TaskManagement.Domain.Models;
@@ -34,17 +33,13 @@ public class IssueController : Controller
 
 
     /// <summary>
-    /// GET: Index view. Contains issues.
+    /// GET: Index view.
     /// </summary>
-    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>View.</returns>
     [HttpGet]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+    public IActionResult Index()
     {
-        var issues = await mediator.Send(new GetIssuesQuery(), cancellationToken);
-
-        var viewModel = new IssuesListViewModel { Issues = issues };
-        return View(viewModel);
+        return View();
     }
 
     /// <summary>
@@ -52,7 +47,6 @@ public class IssueController : Controller
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>View.</returns>
-
     [HttpGet("List")]
     public async Task<IActionResult> List(CancellationToken cancellationToken)
     {
@@ -114,7 +108,7 @@ public class IssueController : Controller
     /// </summary>
     /// <param name="issueDto">Issue DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <param name="id">Optional parameter. When you put it, you will create sub issue.</param>
+    /// <param name="id">Parent issue. When you put it, you will create sub issue.</param>
     /// <returns>Redirect to index page.</returns>
     [HttpPost("Create/{id:int?}")]
     public async Task<IActionResult> Create([FromForm] IssueDto issueDto, CancellationToken cancellationToken, [FromRoute] int? id = null)
@@ -196,6 +190,12 @@ public class IssueController : Controller
         return NoContent();
     }
 
+    /// <summary>
+    /// Sets application language.
+    /// </summary>
+    /// <param name="culture">Requested culture.</param>
+    /// <param name="returnUrl">Previous user's url.</param>
+    /// <returns>Local redirect to provided url.</returns>
     [HttpPost]
     public IActionResult SetLanguage(string culture, string returnUrl)
     {

@@ -1,4 +1,8 @@
 ﻿namespace TaskManagement.Domain.Exceptions;
+
+/// <summary>
+/// Raises when requested issue does not exist in the database.
+/// </summary>
 public class IssueNotFoundException : Exception
 {
     /// <summary>

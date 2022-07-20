@@ -64,7 +64,7 @@ public class Issue
     public virtual ICollection<Issue> SubIssues { get; init; }
 
     /// <summary>
-    /// Parent issue id. If no parent, it is null.
+    /// Parent issue id.
     /// </summary>
     public virtual int? IssueId { get; set; }
 }

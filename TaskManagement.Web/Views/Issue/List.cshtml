@@ -15,7 +15,7 @@
     async Task GenerateIssue(Issue issue)
     {
         <li>
-            <a class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</a>
+            <label class="issueName" onclick="loadIssueInfo(@issue.Id)">@issue.Name</label>
             <img class="redCross" src="img/red-cross.png" onclick="deleteIssue(@issue.Id)" alt="Delete issue"/>
         </li>
         
